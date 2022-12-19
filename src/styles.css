@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  background-color: #d3d3d3;
+  font-family: Arial;
+  font-size: 10px;
+}
+
+@font-face {
+  font-family: led;
+  src: url('./assets/led.ttf');
+}
+
+@font-face {
+  font-family: led2;
+  src: url('./assets/led.otf');
+}
+
+
+body, h1, h2, h3, h4, h5, h6, p {
+  padding: 0;
+  margin: 0;
+
+}
+
+.lcd {
+  font-family: led;
+}

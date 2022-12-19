@@ -1,0 +1,155 @@
+
+.miniDisplay {
+  span {
+    font-family: led;
+  }
+
+  top: -20px;
+  position: relative;
+  font-size: 11rem;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows:  1.4fr 0.2fr 1.4fr;
+  gap: 0px 0px;
+  height: 14rem;
+  width: 18rem;
+  color: black;
+
+  grid-template-areas:
+"temperature unit"
+"temperature field"
+"temperature temperature2";
+
+  .temperature {
+    width: 1em;
+    grid-area: temperature;
+    font-size: 1.2em;
+
+  }
+
+  .temperature2 {
+    grid-area: temperature2;
+    font-size: 0.5em;
+
+  }
+
+  .unit {
+    grid-area: unit;
+    font-size: 0.3em;
+    position: relative;
+    top: 38px;
+  }
+
+  .field {
+    position: relative;
+    top: 20px;
+    padding-left: 0.5em;
+    font-size: 0.18em;
+    grid-area: field;
+  }
+}
+
+.temp {
+  height: 300px;
+  float: left;
+  width: 100%;
+  position: relative;
+  font-size: 20px;
+  border-bottom: 5px solid black;
+  z-index: 3;
+
+  .circleLux {
+    position: absolute;
+    top: -190px;
+    left: calc(50% - 155px);
+    background-color: #ffffff;
+    width: 300px;
+    height: 300px;
+    //border-radius: 50%;
+    border: 5px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    z-index: 4;
+    border-radius: 120px;
+
+    > span {
+      padding-bottom: 35px;
+      font-size: 57px;
+    }
+  }
+
+  .left, .right {
+    width: calc(50% - 4px);
+    height: 100%;
+    float: left;
+  }
+
+  .left {
+    border-right: 4px solid black;
+    background: rgb(255, 255, 255);
+    //   filter: grayscale(1);
+
+    background: linear-gradient(240deg, rgba(255, 255, 255, 1) 15%, rgba(0, 255, 48, 1) 95%);
+    position: relative;
+
+
+    img {
+      position: absolute;
+      height: 70px;
+      right: 160px;
+    }
+
+    .temperatureHome {
+      position: relative;
+      left: -47px;
+      padding: 10px 0 0 55px;
+    }
+
+    > .humidity {
+      bottom: -5px;
+      right: 15px;
+      font-size: 59px;
+      position: absolute;
+
+      > span {
+        font-size: 1.50em;
+        font-family: led;
+      }
+
+    }
+  }
+
+  .right {
+    border-left: 4px solid black;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(120deg, rgba(255, 255, 255, 1) 15%, rgba(255, 178, 0, 1) 95%);
+    position: relative;
+
+    img {
+      position: absolute;
+      height: 70px;
+      right: 10px;
+    }
+
+    .temperatureOutHome {
+
+      padding: 10px 70px 0 0;
+      float: right;
+
+    }
+
+    > .humidity {
+      bottom: -5px;
+      left: 15px;
+      font-size: 59px;
+      position: absolute;
+
+      > span {
+        font-size: 1.50em;
+        font-family: led;
+      }
+    }
+  }
+}

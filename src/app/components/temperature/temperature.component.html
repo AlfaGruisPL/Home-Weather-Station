@@ -1,0 +1,40 @@
+<div class="temp">
+  <div [ngClass]="{'noData':XiaomiSensorKorytarz.getTimeToLastData() > 1000}" class="left" id="tempLeft">
+    <img src="./assets/home.png">
+    <div class="temperatureHome miniDisplay">
+      <div class="temperature"><span id="temperatureHome">{{XiaomiSensorKorytarz.temperature1()}}</span></div>
+      <div class="temperature2">.<span id="temperatureHome2">{{XiaomiSensorKorytarz.temperature2()}}</span></div>
+      <div class="unit">&#8451;
+      </div>
+      <div *ngIf="XiaomiSensorKorytarz.getTimeToLastData() > 400" class="field"
+           id="temperatureHomeCounter">{{XiaomiSensorKorytarz.getTimeToLastData()}}</div>
+    </div>
+    <div class="humidity">
+      <span id="humidityHome">{{XiaomiSensorKorytarz.humidity}}</span>hr
+    </div>
+  </div>
+  <div [ngClass]="{'noData':station.getTimeToLastData() > 150}" class="right" id="tempRight">
+    <img src="./assets/las.png">
+    <div class="temperatureOutHome miniDisplay">
+      <div class="temperature"><span id="temperatureOutHome">{{station.temperatureDallas1()}}</span></div>
+      <div class="temperature2">.<span id="temperatureOutHome2">{{station.temperatureDallas2()}}</span></div>
+      <div class="unit">&#8451;</div>
+      <div class="field"><span *ngIf="station.getTimeToLastData() > 100"
+                               id="temperatureOutHomeCounter">{{station.getTimeToLastData()}}</span>
+      </div>
+    </div>
+    <span id="presure"
+          style="position: absolute;right: 1px;bottom: 1px;font-size: 35px">{{station.dust}}μg/m3
+        <br> {{station.getPresure()}}</span>
+    <div class="humidity">
+      <span id="humidityOutHome">{{station.humidityDHT}}</span>hr
+    </div>
+
+  </div>
+  <div class="circleLux">
+        <span>
+            <span id="lux">{{station.light.toString().split(".")[0]}}</span><span>lux</span>
+        </span>
+  </div>
+
+</div>
