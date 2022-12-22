@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="790e8011-4b78-4f08-9453-8b108a1474b6" name="taty serwer">
+        <fileTransfer rootFolder="/var/www/htdocs/stacja" accessType="SFTP" host="spiderservices.pl" port="60022" sshConfigId="b62c6650-7c4f-49a2-875d-e7edf2e7a265" sshConfig="root@spiderservices.pl:60022 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

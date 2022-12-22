@@ -4,6 +4,7 @@ import {Piec} from "./models/piec";
 import {Energy} from "./models/energy";
 import {Solar} from "./models/solar";
 import {XiaomiSensor} from "./models/xiaomi-sensor";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-root',
@@ -21,14 +22,31 @@ export class AppComponent implements OnInit {
   energy = new Energy();
   time: string = '0';
 
+  constructor(private notifierService: NotifierService) {
+  }
+
   ngOnInit() {
-    this.getTimeClock();
-    this.pobierzPogode();
-    this.piecRequest();
-    this.energyRequest();
-    this.energyYear();
-    this.solarRequest();
-    this.XiaomiSensors();
+    let isTabActive: boolean;
+    let isTabActiveLast = false;
+    window.onfocus = function () {
+      isTabActive = true;
+    };
+    window.onblur = function () {
+      isTabActive = false;
+    };
+
+    setInterval(() => {
+      if (isTabActive != isTabActiveLast) {
+        if (isTabActive) {
+          this.getAll();
+          this.notifierService.notify('success', 'Trwa odświeżanie danych');
+        }
+        isTabActiveLast = isTabActive
+      }
+    }, 100);
+
+
+    this.getAll();
     setInterval(() => {
       this.piecRequest();
       this.getTimeClock();
@@ -44,6 +62,18 @@ export class AppComponent implements OnInit {
     setInterval(() => {
       this.energyYear();
     }, 60000)
+  }
+
+  getAll() {
+
+    this.getTimeClock();
+    this.pobierzPogode();
+    this.piecRequest();
+    this.energyRequest();
+    this.energyYear();
+    this.solarRequest();
+    this.XiaomiSensors();
+
   }
 
   XiaomiSensors() {
