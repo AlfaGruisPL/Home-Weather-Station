@@ -1,0 +1,37 @@
+<div class="mainSolarDiv" id="solarPanel" tabindex="1">
+  <h1>Panele fotowoltaiczne:</h1>
+
+  <div class="top">
+    <div class="solarIcon">
+      <img
+        *ngIf="solar.energy1 > 0"
+        [ngClass]="{'max':solar.energy1 >=1000}"
+        src="assets/light-bulb-2-512.png">
+
+      <img
+        *ngIf="solar.energy1 <= 0"
+        src="assets/light-bulb-2-512%20—%20kopia.png">
+    </div>
+    <div class="now">Teraz:<br> {{solar.energy1}}W</div>
+    <div class="allDay">Dziś:<br> {{solar.all_at_day}}kWh</div>
+    <div class="allYesterday">Wczoraj:<br> {{solarWczoraj.all_at_day}}kWh</div>
+  </div>
+  <div class="bottom">
+    <table>
+      <tr>
+        <td>Początek produkcji: &nbsp;&nbsp;</td>
+        <td>{{solar.poczatek | date:"HH:mm"}}</td>
+      </tr>
+
+      <tr>
+        <td>Koniec produkcji:</td>
+        <td *ngIf="solar.energy1 != 0">------</td>
+        <td *ngIf="solar.energy1 == 0">{{solar.koniec | date:"HH:mm"}}</td>
+      </tr>
+    </table>
+    <div class="chart-container">
+      <canvas id="MyChart">{{ chart }}</canvas>
+    </div>
+
+  </div>
+</div>

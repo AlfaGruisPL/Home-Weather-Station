@@ -34,21 +34,8 @@
       </table>
     </div>
   </div>
-  <div class="furnace" id="furnaceBack">
-    <div class="tempFurnace">
-      <div class="k1"><span>{{piec.temp3}}</span>&#8451;</div>
-      <div class="k2">
-        <div class="furnaceBackPlate" id="furnacFirePlate"></div>
-        <img class="furnaceFire" id="furnaceFire" src="./assets/fire.gif">
-        <img alt="piec img" id="furnaceImg1" src="./assets/furnaceCoal.png">
-        <img alt="piec img" id="furnaceImg2" src="./assets/furnaceGIF.png">
-      </div>
-      <div class="k3"><span>{{piec.temp1}}</span>&#8451;</div>
-    </div>
-    <span id="furnaceTime"></span>
-
-  </div>
-
+  <app-solar></app-solar>
+  <app-furnace></app-furnace>
 
   <div class="time">
     <h1 id="time">{{time}}</h1>
@@ -71,6 +58,17 @@
 
 
 </div>
+
+<div *ngIf="monitoring == true" class="cameraView" style="position:relative;z-index: 1000">
+  <iframe src="http://10.68.6.2:8083/player/1"
+          style="width: 100%;"></iframe>
+  <iframe src="http://10.68.6.2:8083/player/2"
+          style="width: 100%;height: auto"></iframe>
+  <iframe src="http://10.68.6.2:8083/player/3" style="width: 100%;height: auto"></iframe>
+</div>
+<div *ngIf="monitoring == false" class="cameraView" style="position:relative;z-index: 1000">
+  <button (click)="toLocalNetwork()">Do lokalnej sieci:</button>
+</div>
 <p style="font-size: 70px">
   <span [ngClass]="{'noData':XiaomiSensorDol.getTimeToLastData() > 1000}">
     <span> Dół: {{XiaomiSensorDol.temperature}}&#8451;</span>
@@ -80,17 +78,9 @@
     <span>  Duży pokój: {{XiaomiSensorDuzyPokuj.temperature}}&#8451;</span>
   </span>
   <br>
-  <span>
-    <span>Produkcja teraz: {{solar.energy1}}W</span>
+  <span [ngClass]="{'noData':XiaomiSensorTaty.getTimeToLastData() > 3000}">
+    <span> Gabinet: {{XiaomiSensorTaty.temperature}}&#8451;</span>
   </span>
   <br>
-  <span>
-    <span>Produkcja teraz2: {{solar.energy2}}W</span>
-  </span>
-  <br>
-  <span>
-    <span> Produkcja dziś: {{solar.all_at_day}}kWh;</span>
-  </span>
-
-
 </p>
+

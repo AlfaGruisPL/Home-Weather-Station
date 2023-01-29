@@ -91,99 +91,13 @@ body {
 }
 
 
-.furnace {
-  display: flex;
-  width: 100%;
-  height: 230px;
-  background-color: #8af5ff;
-  justify-content: center;
-  border-bottom: 5px solid black;
-  position: relative;
-  transition: background-color 1s;
-
-  #furnaceTime {
-    bottom: 1px;
-    right: 50px;
-    font-size: 3em;
-    position: absolute;
-  }
-
-  .tempFurnace {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-
-    .k1, .k3 {
-      font-family: led;
-      font-size: 100px;
-      width: 40%;
-    }
-
-    .k1 {
-      float: left;
-      padding-top: 100px;
-      padding-right: 20px;
-      text-align: right;
-
-    }
-
-    .k2 {
-      float: left;
-      height: 100%;
-      position: relative;
-      width: 20%;
-      margin-right: 20px;
-
-      .furnaceBackPlate {
-        background-color: #1a1a1a;
-        width: 80px;
-        height: 80px;
-        position: absolute;
-        bottom: 20px;
-        left: 70px;
-        opacity: 0;
-        transition: opacity 2s;
-      }
-
-      #furnaceImg1, #furnaceImg2 {
-        height: 100%;
-        position: absolute;
-
-        transition: opacity 2s;
-      }
-
-      #furnaceImg2 {
-        opacity: 0;
-        z-index: 21;
-      }
-
-      .furnaceFire {
-        position: absolute;
-        height: 70px;
-        bottom: 25px;
-        width: 70px;
-        left: 62px;
-        z-index: 20;
-        opacity: 0;
-        transition: opacity 2s;
-      }
-    }
-
-    .k3 {
-      float: left;
-      text-align: left;
-
-    }
-  }
-}
-
 .energy {
   width: 100%;
   height: 250px;
   float: left;
   background-color: #b3ffb3;
+  // position: relative;
+  // z-index: 10000;
   border-bottom: 5px solid black;
 
   .container {
@@ -283,4 +197,16 @@ h5 {
     color: #818181 !important;
   }
 
+}
+
+.cameraView {
+  iframe {
+    pointer-events: none;
+  }
+
+  button {
+    font-size: 70px;
+    padding: 10px;
+
+  }
 }

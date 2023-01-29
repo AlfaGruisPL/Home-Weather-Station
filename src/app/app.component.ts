@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Meteo} from "./models/meteo";
-import {Piec} from "./models/piec";
 import {Energy} from "./models/energy";
-import {Solar} from "./models/solar";
 import {XiaomiSensor} from "./models/xiaomi-sensor";
 import {NotifierService} from "angular-notifier";
 
@@ -15,17 +13,22 @@ export class AppComponent implements OnInit {
   title = 'StacjaPogodowa2';
   XiaomiSensorDol = new XiaomiSensor();
   XiaomiSensorDuzyPokuj = new XiaomiSensor();
-  solar = new Solar();
-
+  XiaomiSensorTaty = new XiaomiSensor();
   meteo = new Meteo();
-  piec = new Piec();
   energy = new Energy();
   time: string = '0';
+  monitoring = false;
 
   constructor(private notifierService: NotifierService) {
   }
 
   ngOnInit() {
+    const queryString = window.location.search;
+    if (queryString.indexOf('local=true') >= 0) {
+      this.monitoring = true;
+    }
+
+
     let isTabActive: boolean;
     let isTabActiveLast = false;
     window.onfocus = function () {
@@ -48,12 +51,11 @@ export class AppComponent implements OnInit {
 
     this.getAll();
     setInterval(() => {
-      this.piecRequest();
+
       this.getTimeClock();
     }, 1000)
     setInterval(() => {
       this.energyRequest();
-      this.solarRequest();
       this.XiaomiSensors();
     }, 10000)
     setInterval(() => {
@@ -68,10 +70,8 @@ export class AppComponent implements OnInit {
 
     this.getTimeClock();
     this.pobierzPogode();
-    this.piecRequest();
     this.energyRequest();
     this.energyYear();
-    this.solarRequest();
     this.XiaomiSensors();
 
   }
@@ -82,8 +82,12 @@ export class AppComponent implements OnInit {
     }).then(k => {
       Object.assign(this.XiaomiSensorDuzyPokuj, k.inside2)
       Object.assign(this.XiaomiSensorDol, k.inside3)
-
+      Object.assign(this.XiaomiSensorTaty, k.inside4)
     })
+  }
+
+  toLocalNetwork() {
+    window.location.href = "http://10.68.6.28/stacja/index/index.html?local=true"
   }
 
   pobierzPogode() {
@@ -94,26 +98,6 @@ export class AppComponent implements OnInit {
     })
   }
 
-  piecRequest() {
-    fetch("https://spiderservices.pl/stacja/stacjaApi.php/furnace").then(function (response) {
-      return response.json();
-    }).then(kLocal => {
-      Object.assign(this.piec, kLocal);
-      if (Number(kLocal.temp1.split(",")[0]) > 25) {
-        // @ts-ignore
-        document.getElementById("furnaceImg2").style.opacity = "1"        // @ts-ignore
-        document.getElementById("furnacFirePlate").style.opacity = "1"        // @ts-ignore
-        document.getElementById("furnaceFire").style.opacity = "1";        // @ts-ignore
-        document.getElementById('furnaceBack').style.background = "#ff9090";
-      } else {
-        // @ts-ignore
-        document.getElementById("furnaceImg2").style.opacity = "0";       // @ts-ignore
-        document.getElementById("furnacFirePlate").style.opacity = "0";       // @ts-ignore
-        document.getElementById("furnaceFire").style.opacity = "0";        // @ts-ignore
-        document.getElementById('furnaceBack').style.background = "#8af5ff";
-      }
-    })
-  }
 
   energyYear() {
     fetch("https://spiderservices.pl/stacja/stacjaApi.php/energyYear").then(function (response) {
@@ -140,11 +124,5 @@ export class AppComponent implements OnInit {
     this.time = hour + ":" + minute + ":" + second;
   }
 
-  solarRequest() {
-    fetch("https://spiderservices.pl/stacja/stacjaApi.php/solar").then(function (response) {
-      return response.json();
-    }).then(kLocal => {
-      Object.assign(this.solar, kLocal[0])
-    })
-  }
+
 }

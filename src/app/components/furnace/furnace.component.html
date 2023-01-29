@@ -1,0 +1,31 @@
+<div class="furnace" id="furnaceBack" tabindex="1">
+  <div class="top">
+
+    <div class="tempFurnace">
+      <div class="k1"><span>{{piec.temp3}}</span>&#8451;</div>
+      <div class="k2">
+        <div class="furnaceBackPlate" id="furnacFirePlate"></div>
+        <img class="furnaceFire" id="furnaceFire" src="./assets/fire.gif">
+        <img alt="piec img" id="furnaceImg1" src="./assets/furnaceCoal.png">
+        <img alt="piec img" id="furnaceImg2" src="./assets/furnaceGIF.png">
+      </div>
+      <div class="k3"><span>{{piec.temp1}}</span>&#8451;</div>
+    </div>
+    <span id="furnaceTime"></span>
+  </div>
+  <div class="bottom">
+    <div class="chart-container">
+      <canvas id="wykresZPieca1">{{ chart }}</canvas>
+    </div>
+    <p style="font-size: 40px;padding-left: 20px">
+      Przedział czasu: &nbsp;
+      <select (change)="setData($event)" class="time">
+        <option value="10">10 minut</option>
+        <option value="30">30 minut</option>
+        <option [defaultSelected]="true" value="120">2 godziny</option>
+        <option value="360">6 godzin</option>
+        <option value="720">12 godzin</option>
+      </select>
+    </p>
+  </div>
+</div>

@@ -81,24 +81,33 @@
   }
 
   .left, .right {
-    width: calc(50% - 4px);
+    width: calc(50% - 1px);
     height: 100%;
     float: left;
   }
 
+
   .left {
+    .small {
+      border-bottom: 4px solid black;
+      height: 302px;
+      width: calc(50vw - 2px);
+      border-right: 4px solid black;
+    }
+
     border-right: 4px solid black;
     background: rgb(255, 255, 255);
     //   filter: grayscale(1);
 
     background: linear-gradient(240deg, rgba(255, 255, 255, 1) 15%, rgba(0, 255, 48, 1) 95%);
-    position: relative;
-
+    position: absolute;
+    left: 0px;
+    top: 0;
 
     img {
       position: absolute;
       height: 70px;
-      right: 160px;
+      left: 290px;
     }
 
     .temperatureHome {
@@ -107,9 +116,9 @@
       padding: 10px 0 0 55px;
     }
 
-    > .humidity {
-      bottom: -5px;
-      right: 15px;
+    > div > .humidity {
+      top: 210px;
+      left: 335px;
       font-size: 59px;
       position: absolute;
 
@@ -125,7 +134,25 @@
     border-left: 4px solid black;
     background: rgb(255, 255, 255);
     background: linear-gradient(120deg, rgba(255, 255, 255, 1) 15%, rgba(255, 178, 0, 1) 95%);
-    position: relative;
+    position: absolute;
+    right: 0px;
+    top: 0;
+
+
+    .small {
+      border-bottom: 4px solid black;
+      height: 302px;
+      width: calc(50vw - 2px);
+      border-left: 4px solid black;
+      float: right;
+    }
+
+    .big {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity 400ms;
+    }
 
     img {
       position: absolute;
@@ -140,9 +167,9 @@
 
     }
 
-    > .humidity {
-      bottom: -5px;
-      left: 15px;
+    > div > .humidity {
+      top: 210px;
+      right: 245px;
       font-size: 59px;
       position: absolute;
 
@@ -152,4 +179,103 @@
       }
     }
   }
+}
+
+
+.left, .right {
+
+  transition: height 500ms, width 500ms;
+  border-bottom: 5px solid black;
+
+  &:focus-within {
+    width: calc(100% - 4px) !important;
+    height: 600px !important;
+
+    .Xbutton2, .Xbutton1 {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .big {
+      display: block;
+      opacity: 1;
+
+
+      * {
+        pointer-events: auto;
+      }
+
+      * canvas {
+        pointer-events: auto;
+      }
+    }
+  }
+
+  &:not(focus-within) {
+
+
+    .Xbutton2, .Xbutton1 {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .big {
+      height: 398px;
+      opacity: 0;
+      display: none;
+
+      * te {
+        pointer-events: none !important;
+      }
+
+      * canvas {
+        pointer-events: none !important;
+      }
+    }
+  }
+
+  .big {
+    position: relative;
+    height: 370px;
+  }
+
+  z-index: 100;
+
+}
+
+
+.airTable {
+  font-size: 40px;
+
+  tr {
+    td:first-child {
+      padding-right: 15px;
+    }
+
+    td:nth-child(2) {
+      font-weight: bold;
+      padding-right: 15px;
+    }
+
+    td:nth-child(3) {
+      font-size: 25px;
+    }
+  }
+}
+
+.Xbutton2, .Xbutton1 {
+  transition: opacity 590ms;
+  position: absolute;
+  background: transparent;
+  border: 0;
+}
+
+.Xbutton1 {
+  bottom: 0px;
+  left: 0px;
+}
+
+.Xbutton2 {
+  bottom: 0px;
+  right: 0px;
 }

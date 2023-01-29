@@ -1,0 +1,91 @@
+.focus {
+
+}
+
+.mainSolarDiv {
+  width: 100%;
+  min-height: 100px;
+  font-size: 50px;
+  background: #ffec71;
+  border-bottom: 5px solid black;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  height: 210px;
+  transition: height 500ms;
+  width: 100%;
+
+  &:focus {
+    height: 1100px !important;
+
+    .bottom {
+      opacity: 1 !important;
+      pointer-events: all;
+    }
+  }
+
+  &:not(:focus) {
+    .bottom {
+      opacity: 0;
+      transition: opacity 100ms;
+      transition-delay: 350ms;
+      pointer-events: none;
+    }
+  }
+
+  h1 {
+    text-align: center;
+    width: 100%;
+    font-size: 50px;
+  }
+
+  .top {
+    padding-top: 5px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .now, .allYesterday, .allDay {
+      text-align: center;
+    }
+
+    .solarIcon {
+      width: 10%;
+      position: relative;
+
+      img {
+        bottom: 20px;
+        width: 140px;
+        position: absolute;
+
+
+      }
+
+      .max {
+        filter: contrast(300%) drop-shadow(0px -10px 30px #ff1e00);
+      }
+    }
+
+    .now {
+      width: 28%;
+      //  border-right: 2px solid green;
+    }
+
+    .allDay {
+
+      //  border-right: 2px solid green;
+      width: 28%;
+    }
+  }
+
+  .allYesterday {
+
+    width: 28%;
+  }
+
+  .bottom {
+    opacity: 0;
+    width: 100%;
+  }
+}

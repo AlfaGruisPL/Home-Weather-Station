@@ -1,35 +1,68 @@
-<div class="temp">
-  <div [ngClass]="{'noData':XiaomiSensorKorytarz.getTimeToLastData() > 1000}" class="left" id="tempLeft">
-    <img src="./assets/home.png">
-    <div class="temperatureHome miniDisplay">
-      <div class="temperature"><span id="temperatureHome">{{XiaomiSensorKorytarz.temperature1()}}</span></div>
-      <div class="temperature2">.<span id="temperatureHome2">{{XiaomiSensorKorytarz.temperature2()}}</span></div>
-      <div class="unit">&#8451;
+<div class="temp" style="position: relative">
+  <div (mouseenter)="setZIndex('tempLeft','tempRight')"
+       [ngClass]="{'noData':XiaomiSensorKorytarz.getTimeToLastData() > 1000}" class="left"
+       id="tempLeft" tabindex="1000">
+    <div class="small">
+
+      <img src="./assets/home.png">
+      <div class="temperatureHome miniDisplay">
+        <div class="temperature"><span id="temperatureHome">{{XiaomiSensorKorytarz.temperature1()}}</span></div>
+        <div class="temperature2">.<span id="temperatureHome2">{{XiaomiSensorKorytarz.temperature2()}}</span></div>
+        <div class="unit">&#8451;
+        </div>
+        <div *ngIf="XiaomiSensorKorytarz.getTimeToLastData() > 400" class="field"
+             id="temperatureHomeCounter">{{XiaomiSensorKorytarz.getTimeToLastData()}}</div>
       </div>
-      <div *ngIf="XiaomiSensorKorytarz.getTimeToLastData() > 400" class="field"
-           id="temperatureHomeCounter">{{XiaomiSensorKorytarz.getTimeToLastData()}}</div>
-    </div>
-    <div class="humidity">
-      <span id="humidityHome">{{XiaomiSensorKorytarz.humidity}}</span>hr
+      <div class="humidity">
+        <span id="humidityHome">{{XiaomiSensorKorytarz.humidity}}</span>hr
+      </div>
     </div>
   </div>
-  <div [ngClass]="{'noData':station.getTimeToLastData() > 150}" class="right" id="tempRight">
-    <img src="./assets/las.png">
-    <div class="temperatureOutHome miniDisplay">
-      <div class="temperature"><span id="temperatureOutHome">{{station.temperatureDallas1()}}</span></div>
-      <div class="temperature2">.<span id="temperatureOutHome2">{{station.temperatureDallas2()}}</span></div>
-      <div class="unit">&#8451;</div>
-      <div class="field"><span *ngIf="station.getTimeToLastData() > 100"
-                               id="temperatureOutHomeCounter">{{station.getTimeToLastData()}}</span>
+  <div (mouseenter)="setZIndex('tempRight','tempLeft')" [ngClass]="{'noData':station.getTimeToLastData() > 150}"
+       class="right" id="tempRight" tabindex="1000">
+    <div class="small">
+
+      <img src="./assets/las.png">
+      <div class="temperatureOutHome miniDisplay">
+        <div class="temperature"><span id="temperatureOutHome">{{station.temperatureDallas1()}}</span></div>
+        <div class="temperature2">.<span id="temperatureOutHome2">{{station.temperatureDallas2()}}</span></div>
+        <div class="unit">&#8451;</div>
+        <div class="field"><span *ngIf="station.getTimeToLastData() > 100"
+                                 id="temperatureOutHomeCounter">{{station.getTimeToLastData()}}</span>
+        </div>
+      </div>
+      <span id="presure"
+            style="position: absolute;right: 1px;top: 210px;font-size: 35px">{{station.dust}}μg/m3
+        <br> {{station.getPresure()}}</span>
+      <div class="humidity">
+        <span id="humidityOutHome">{{station.humidityDHT}}</span>hr
       </div>
     </div>
-    <span id="presure"
-          style="position: absolute;right: 1px;bottom: 1px;font-size: 35px">{{station.dust}}μg/m3
-        <br> {{station.getPresure()}}</span>
-    <div class="humidity">
-      <span id="humidityOutHome">{{station.humidityDHT}}</span>hr
-    </div>
+    <div class="big">
+      <table *ngIf="getAirTable()[1].value() != 0" class="airTable">
+        <tr *ngFor="let k of getAirTable()">
+          <td>{{k.name1}}<sub>{{k.name2}}</sub>:</td>
+          <td>{{k.value()}}</td>
+          <td><sub>{{k.value_valHistory[0]}} µg/m³</sub></td>
+          <td>{{k.getEmoji()}}</td>
+          <td>
+            <canvas [id]="k.charId"
+                    [style]="{width:k.chartWidth,height:k.chartHeight}">{{ k.getChart() }}</canvas>
+          </td>
+        </tr>
+      </table>
+      <div
+        style="position: fixed;right: 1px;display: flex;justify-content:center;width: 100%">
+        <div style="height: 250px;width: 900px;">
 
+          <canvas id="presureChartID"
+          >{{ presureChart }}</canvas>
+        </div>
+      </div>
+
+    </div>
+    <button (click)="toja.focus()" class="Xbutton1" style="font-size: 80px">X</button>
+    <button (click)="toja.focus()" class="Xbutton2" style="font-size: 80px">X</button>
   </div>
   <div class="circleLux">
         <span>
@@ -38,3 +71,4 @@
   </div>
 
 </div>
+<p #toja style="visibility: hidden" tabindex="2"></p>
