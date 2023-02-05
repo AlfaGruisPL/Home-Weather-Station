@@ -19,7 +19,7 @@
     }
   }
 
-  &:not(:focus) {
+  &:not(:focus-within) {
     .bottom {
       height: 230px;
       opacity: 0;

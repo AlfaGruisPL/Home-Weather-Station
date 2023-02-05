@@ -28,14 +28,23 @@ export class TemperatureComponent implements OnInit {
 
   ngOnInit(): void {
     this.createPresureChart();
-    this.airInfo()
-    this.XiaomiSensors();
+
+    var ostatnieWykonanie = 0;
     setInterval(() => {
-      this.XiaomiSensors();
-    }, 4000)
+      if (ostatnieWykonanie + 4000 < new Date().getTime()) {
+        ostatnieWykonanie = new Date().getTime();
+        this.XiaomiSensors();
+      }
+    }, 300)
+
+    var ostatnieWykonanie1 = 0;
     setInterval(() => {
-      this.airInfo()
-    }, 20000)
+      if (ostatnieWykonanie1 + 20000 < new Date().getTime()) {
+        ostatnieWykonanie1 = new Date().getTime();
+        this.airInfo()
+      }
+    }, 300)
+
 
   }
 
@@ -81,7 +90,7 @@ export class TemperatureComponent implements OnInit {
 
       k.presure.forEach((kk: any) => {
         if (Number(kk['presureBMP']) > 100) {
-
+        
           this.presureHistory.push(Number((Math.round(kk['presureBMP'] * 100) / 10000).toString().slice(0, -2)));
           this.charLabel.push(kk['data'].split(' ')[1])
         }

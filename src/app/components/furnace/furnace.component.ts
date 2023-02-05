@@ -19,23 +19,45 @@ export class FurnaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.piecRequest();
+
+
+    var ostatnieWykonanie = 0;
     setInterval(() => {
-      if (Number(this.piec.temp1.toString().split(",")[0]) > 17) {
-        this.piecRequest();
+      if (ostatnieWykonanie + 1000 < new Date().getTime()) {
+        ostatnieWykonanie = new Date().getTime();
+        if (Number(this.piec.temp1.toString().split(",")[0]) > 17) {
+          this.piecRequest();
+        }
       }
-    }, 1000);
+    }, 300)
+
+    var ostatnieWykonanie1 = 0;
+    setInterval(() => {
+      if (ostatnieWykonanie1 + 10000 < new Date().getTime()) {
+        ostatnieWykonanie1 = new Date().getTime();
+        if (Number(this.piec.temp1.toString().split(",")[0]) <= 17) {
+          this.piecRequest();
+        }
+      }
+    }, 300)
+
     setInterval(() => {
       if (Number(this.piec.temp1.toString().split(",")[0]) <= 17) {
         this.piecRequest();
       }
     }, 10000)
     this.charInit();
-    setInterval(() => {
 
-      this.piecChar();
-    }, 60000)
-    this.piecChar();
+
+    var ostatnieWykonanie2 = 0;
+    setInterval(() => {
+      if (ostatnieWykonanie2 + 30000 < new Date().getTime()) {
+        ostatnieWykonanie2 = new Date().getTime();
+        this.piecChar();
+      }
+    }, 300)
+
+
   }
 
   piecChar() {

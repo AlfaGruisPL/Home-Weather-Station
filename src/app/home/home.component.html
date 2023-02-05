@@ -1,0 +1,85 @@
+<div style="width: 100%;max-width: 100%">
+
+
+  <app-temperature></app-temperature>
+
+  <div class="energy">
+    <div class="container">
+      <div class="phase1">
+        Faza 1:<br>
+        <span id="energyNowPhase1">{{energy.getMocCzynna1()}}W</span>
+      </div>
+      <div class="phase2"> Faza 2:<br><span id="energyNowPhase2">{{energy.getMocCzynna2()}}W</span></div>
+      <div class="phase3"> Faza 3:<br><span id="energyNowPhase3">{{energy.getMocCzynna3()}}W</span></div>
+      <div class="phaseAll"> Faza 1,2,3:<br><span id="energyNowPhaseAll">{{energy.getMocCzynnaSuma()}}W</span></div>
+    </div>
+
+    <div class="stats">
+      <table>
+
+        <tr>
+          <td><h5> Pobrane:</h5></td>
+          <td>&nbsp;<span id="energyDisplay1">{{energy.getEnergy()}}kWh</span></td>
+        </tr>
+        <tr>
+          <td><h5> Zwrócone:</h5></td>
+          <td>&nbsp;<span id="energyDisplay2">{{energy.sendEnergy()}}kWh</span></td>
+        </tr>
+        <tr>
+          <td><h5> Akumulator:</h5></td>
+          <td>&nbsp;<span id="energyDisplay3">{{energy.akumulator()}}kWh</span></td>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+  <app-solar></app-solar>
+  <app-furnace></app-furnace>
+
+  <div class="time">
+    <h1 id="time">{{time}}</h1>
+  </div>
+  <div class="meteo">
+    <h2>Open-meteo</h2>
+    <div class="circle">
+      <div>
+        <span class="lcd" id="MeteoTemperature">{{meteo.temperature}}</span><span>&#8451;</span>
+      </div>
+      <div>
+        <span class="lcd" id="MeteoWindSpeed">{{meteo.windspeed}}</span><span>km/h</span>
+      </div>
+      <div>
+        <span id="MeteoWinddirection">{{meteo.getWindDirection()}}</span><span></span>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+<div *ngIf="monitoring == true" class="cameraView" style="position:relative;z-index: 1000">
+  <iframe src="http://10.68.6.2:8083/player/1"
+          style="width: 100%;"></iframe>
+  <iframe src="http://10.68.6.2:8083/player/2"
+          style="width: 100%;height: auto"></iframe>
+  <iframe src="http://10.68.6.2:8083/player/3" style="width: 100%;height: auto"></iframe>
+</div>
+<div *ngIf="monitoring == false" class="cameraView" style="position:relative;z-index: 1000">
+  <button (click)="toLocalNetwork()">Do lokalnej sieci:</button>
+</div>
+<p style="font-size: 70px">
+  <span [ngClass]="{'noData':XiaomiSensorDol.getTimeToLastData() > 1000}">
+    <span> Dół: {{XiaomiSensorDol.temperature}}&#8451;</span>
+  </span>
+  <br>
+  <span [ngClass]="{'noData':XiaomiSensorDuzyPokuj.getTimeToLastData() > 1000}">
+    <span>  Duży pokój: {{XiaomiSensorDuzyPokuj.temperature}}&#8451;</span>
+  </span>
+  <br>
+  <span [ngClass]="{'noData':XiaomiSensorTaty.getTimeToLastData() > 3000}">
+    <span> Gabinet: {{XiaomiSensorTaty.temperature}}&#8451;</span>
+  </span>
+  <br>
+</p>
+

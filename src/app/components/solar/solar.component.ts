@@ -29,13 +29,16 @@ export class SolarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.solarRequest()
     this.createChart()
+    var ostatnieWykonanie = 0;
+    setInterval(() => {
+      if (ostatnieWykonanie + 4000 < new Date().getTime()) {
+        ostatnieWykonanie = new Date().getTime();
+        this.solarRequest();
+      }
+    }, 300)
+    
 
-    this.interval3 = setInterval(() => {
-
-      this.solarRequest();
-    }, 4000)
     var active = false;
     var activeBack = 0;
 
@@ -49,11 +52,7 @@ export class SolarComponent implements OnInit, OnDestroy {
 
       }
       , 100)
-    this.interval1 = setInterval(() => {
-      if (active) {
 
-      }
-    }, 71000)
   }
 
   ngOnDestroy() {
