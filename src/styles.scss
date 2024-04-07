@@ -53,3 +53,10 @@ body, h1, h2, h3, h4, h5, h6, p {
 .lcd {
   font-family: led;
 }
+
+.noData {
+  > div, * {
+    color: #818181 !important;
+  }
+
+}

@@ -14,10 +14,16 @@ export class HomeComponent implements OnInit {
   XiaomiSensorDol = new XiaomiSensor();
   XiaomiSensorDuzyPokuj = new XiaomiSensor();
   XiaomiSensorTaty = new XiaomiSensor();
+  XiaomiSensorDol2 = new XiaomiSensor();
+  XiaomiSensorPawel = new XiaomiSensor();
+  XiaomiSensorMateusz = new XiaomiSensor();
+
   meteo = new Meteo();
   energy = new Energy();
   time: string = '0';
   monitoring = false;
+  power: number = 0
+  dataSolar: any;
 
   constructor(private notifierService: NotifierService) {
   }
@@ -28,12 +34,12 @@ export class HomeComponent implements OnInit {
       this.monitoring = true;
     }
 
-
     var ostatnieWykonanie = 0;
     setInterval(() => {
       if (ostatnieWykonanie + 1000 < new Date().getTime()) {
         ostatnieWykonanie = new Date().getTime();
         this.getTimeClock();
+
       }
     }, 300)
 
@@ -41,7 +47,7 @@ export class HomeComponent implements OnInit {
     setInterval(() => {
       if (ostatnieWykonanie1 + 10000 < new Date().getTime()) {
         ostatnieWykonanie1 = new Date().getTime();
-        this.energyRequest();
+
         this.XiaomiSensors();
       }
     }, 300)
@@ -51,14 +57,15 @@ export class HomeComponent implements OnInit {
       if (ostatnieWykonanie2 + 20000 < new Date().getTime()) {
         ostatnieWykonanie2 = new Date().getTime();
         this.pobierzPogode();
+        this.energyYear();
       }
     }, 300)
 
     var ostatnieWykonanie3 = 0;
     setInterval(() => {
-      if (ostatnieWykonanie3 + 20000 < new Date().getTime()) {
+      if (ostatnieWykonanie3 + 3777 < new Date().getTime()) {
         ostatnieWykonanie3 = new Date().getTime();
-        this.energyYear();
+        this.energyRequest();
       }
     }, 300)
 
@@ -71,6 +78,10 @@ export class HomeComponent implements OnInit {
       Object.assign(this.XiaomiSensorDuzyPokuj, k.inside2)
       Object.assign(this.XiaomiSensorDol, k.inside3)
       Object.assign(this.XiaomiSensorTaty, k.inside4)
+      Object.assign(this.XiaomiSensorDol2, k.dol2)
+      Object.assign(this.XiaomiSensorPawel, k.pawel)
+      Object.assign(this.XiaomiSensorMateusz, k.mateusz)
+
     })
   }
 
@@ -86,7 +97,6 @@ export class HomeComponent implements OnInit {
     })
   }
 
-
   energyYear() {
     fetch("https://spiderservices.pl/stacja/stacjaApi.php/energyYear").then(function (response) {
       return response.json();
@@ -101,6 +111,7 @@ export class HomeComponent implements OnInit {
       return response.json();
     }).then(kLocal => {
       Object.assign(this.energy, kLocal)
+      this.calc();
     })
   }
 
@@ -112,6 +123,20 @@ export class HomeComponent implements OnInit {
     this.time = hour + ":" + minute + ":" + second;
   }
 
+  calc() {
+    if (Number(this.energy.getMocCzynnaSuma()) < 0) {
+      this.power = Math.round(Number(this.energy.getMocCzynnaSuma()) + Number(this.dataSolar[0].energy1) + Number(this.dataSolar[1].energy * 1000))
+    } else {
+      this.power = Math.round(Number(this.energy.getMocCzynnaSuma()) - (Number(this.dataSolar[0].energy1) + Number(this.dataSolar[1].energy * 1000)))
+
+    }
+
+  }
+
+  read(event: any) {
+    this.dataSolar = event;
+    this.calc();
+  }
 
 }
 

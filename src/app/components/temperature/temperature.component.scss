@@ -81,13 +81,15 @@
   }
 
   .left, .right {
-    width: calc(50% - 1px);
+    width: calc(50% - 2px);
     height: 100%;
     float: left;
   }
 
 
   .left {
+
+
     .small {
       border-bottom: 4px solid black;
       height: 302px;
@@ -131,6 +133,7 @@
   }
 
   .right {
+
     border-left: 4px solid black;
     background: rgb(255, 255, 255);
     background: linear-gradient(120deg, rgba(255, 255, 255, 1) 15%, rgba(255, 178, 0, 1) 95%);
@@ -220,7 +223,7 @@
     }
 
     .big {
-      height: 398px;
+      height: 300px;
       opacity: 0;
       display: none;
 
@@ -236,7 +239,7 @@
 
   .big {
     position: relative;
-    height: 370px;
+    height: 300px;
   }
 
   z-index: 100;
@@ -268,6 +271,7 @@
   position: absolute;
   background: transparent;
   border: 0;
+  z-index: 90000;
 }
 
 .Xbutton1 {
@@ -278,4 +282,21 @@
 .Xbutton2 {
   bottom: 0px;
   right: 0px;
+}
+
+.homeTemperatureSensors {
+  font-size: 44px;
+  position: absolute;
+  right: -0px;
+  top: -295px;
+  width: 49%;
+
+  span {
+
+    span {
+      &:nth-of-type(2) {
+        font-size: 18px;
+      }
+    }
+  }
 }

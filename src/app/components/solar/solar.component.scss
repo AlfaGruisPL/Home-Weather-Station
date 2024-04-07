@@ -12,12 +12,12 @@
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  height: 210px;
+  height: 330px;
   transition: height 500ms;
   width: 100%;
 
   &:focus {
-    height: 1100px !important;
+    height: 1200px !important;
 
     .bottom {
       opacity: 1 !important;

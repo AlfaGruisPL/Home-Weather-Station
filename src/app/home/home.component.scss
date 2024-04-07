@@ -92,6 +92,7 @@ body {
 
 
 .energy {
+
   width: 100%;
   height: 250px;
   float: left;
@@ -103,7 +104,7 @@ body {
   .container {
     text-align: center;
     float: left;
-    width: 400px;
+    width: calc(50% - 2px);
     height: 100%;
     display: grid;
     grid-auto-columns: 1fr;
@@ -152,15 +153,18 @@ body {
 
     height: 100%;
     border-left: 3px solid black;
-    width: calc(100% - 403px);
+    width: calc(50% - 2px);
     float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     table {
       padding-left: 30px;
 
       tr {
         td {
-          padding-top: 25px;
+          padding-top: 14px;
         }
       }
     }
@@ -191,13 +195,6 @@ h5 {
   width: min-content;
 }
 
-
-.noData {
-  > div, * {
-    color: #818181 !important;
-  }
-
-}
 
 .cameraView {
   iframe {
