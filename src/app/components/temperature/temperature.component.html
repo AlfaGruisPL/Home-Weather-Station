@@ -1,6 +1,6 @@
-<div class="temp" style="position: relative">
+<div class="temp" style="position: relative;">
   <div (mouseenter)="setZIndex('tempLeft','tempRight')"
-       [ngClass]="{'noData':XiaomiSensorKorytarz.getTimeToLastData() > 1000}" class="left"
+       [ngClass]="{'noData':XiaomiSensorKorytarz.getTimeToLastData() > 1800}" class="left"
        id="tempLeft" tabindex="1000">
     <div class="small">
 
@@ -10,15 +10,72 @@
         <div class="temperature2">.<span id="temperatureHome2">{{XiaomiSensorKorytarz.temperature2()}}</span></div>
         <div class="unit">&#8451;
         </div>
-        <div *ngIf="XiaomiSensorKorytarz.getTimeToLastData() > 400" class="field"
+        <div *ngIf="XiaomiSensorKorytarz.getTimeToLastData() > 1800" class="field"
              id="temperatureHomeCounter">{{XiaomiSensorKorytarz.getTimeToLastData()}}</div>
       </div>
       <div class="humidity">
         <span id="humidityHome">{{XiaomiSensorKorytarz.humidity}}</span>hr
       </div>
     </div>
+    <div class="big">
+      <p class="homeTemperatureSensors">
+  <span [ngClass]="{'noData':XiaomiSensorKorytarz.getTimeToLastData() > 1800}">
+    <span>  Korytarz: {{XiaomiSensorKorytarz.temperature}}&#8451;</span>
+        <span
+          *ngIf="XiaomiSensorKorytarz.getTimeToLastData() > 1800"> &nbsp;&nbsp;{{XiaomiSensorKorytarz.getTimeToLastData()}}
+    </span>
+    <br>
+  </span>
+        <span [ngClass]="{'noData':XiaomiSensorDuzyPokuj.getTimeToLastData() > 1800}">
+    <span>  Duży pokój: {{XiaomiSensorDuzyPokuj.temperature}}&#8451;</span>
+        <span
+          *ngIf="XiaomiSensorDuzyPokuj.getTimeToLastData() > 1800"> &nbsp;&nbsp;{{XiaomiSensorDuzyPokuj.getTimeToLastData()}}
+    </span>
+  </span>
+        <br>
+        <span [ngClass]="{'noData':XiaomiSensorTaty.getTimeToLastData() > 3000}">
+    <span> Gabinet: {{XiaomiSensorTaty.temperature}}&#8451;</span>
+        <span
+          *ngIf="XiaomiSensorTaty.getTimeToLastData() > 1800"> &nbsp;&nbsp;{{XiaomiSensorTaty.getTimeToLastData()}}
+    </span>
+  </span>
+        <br>
+        <span [ngClass]="{'noData':XiaomiSensorPawel.getTimeToLastData() > 1800}">
+    <span> Paweł: {{XiaomiSensorPawel.temperature}}&#8451;</span>
+    <span
+      *ngIf="XiaomiSensorPawel.getTimeToLastData() > 1800"> &nbsp;&nbsp;{{XiaomiSensorPawel.getTimeToLastData()}}
+    </span>
+  </span>
+        <br>
+        <span [ngClass]="{'noData':XiaomiSensorMateusz.getTimeToLastData() > 2000}">
+    <span> Mateusz: {{XiaomiSensorMateusz.temperature}}&#8451;</span>
+        <span
+          *ngIf="XiaomiSensorMateusz.getTimeToLastData() > 1800"> &nbsp;&nbsp;{{XiaomiSensorMateusz.getTimeToLastData()}}
+    </span>
+  </span>
+        <br>
+        <span [ngClass]="{'noData':XiaomiSensorDol.getTimeToLastData() > 2000}">
+    <span> Dół: {{XiaomiSensorDol.temperature}}&#8451;</span>
+        <span
+          *ngIf="XiaomiSensorDol.getTimeToLastData() > 1800"> &nbsp;&nbsp;{{XiaomiSensorDol.getTimeToLastData()}}
+    </span>
+  </span>
+        <br>
+        <span [ngClass]="{'noData':XiaomiSensorDol2.getTimeToLastData() > 1800}">
+    <span> Dół2: {{XiaomiSensorDol2.temperature}}&#8451;</span>
+        <span
+          *ngIf="XiaomiSensorDol2.getTimeToLastData() > 1800"> &nbsp;&nbsp;{{XiaomiSensorDol2.getTimeToLastData()}}
+    </span>
+  </span>
+        <br>
+      </p>
+
+      <input (click)="lostFocus()" class="Xbutton1" style="font-size: 80px;z-index: 999999" type="button" value="X">
+      <button (click)="lostFocus()" class="Xbutton2" style="font-size: 80px;z-index: 999999">X</button>
+    </div>
   </div>
-  <div (mouseenter)="setZIndex('tempRight','tempLeft')" [ngClass]="{'noData':station.getTimeToLastData() > 150}"
+
+  <div (mouseenter)="setZIndex('tempRight','tempLeft')" [ngClass]="{'noData':station.getTimeToLastData() > 250}"
        class="right" id="tempRight" tabindex="1000">
     <div class="small">
 
@@ -27,7 +84,7 @@
         <div class="temperature"><span id="temperatureOutHome">{{station.temperatureDallas1()}}</span></div>
         <div class="temperature2">.<span id="temperatureOutHome2">{{station.temperatureDallas2()}}</span></div>
         <div class="unit">&#8451;</div>
-        <div class="field"><span *ngIf="station.getTimeToLastData() > 100"
+        <div class="field"><span *ngIf="station.getTimeToLastData() > 300"
                                  id="temperatureOutHomeCounter">{{station.getTimeToLastData()}}</span>
         </div>
       </div>
@@ -53,7 +110,7 @@
       </table>
       <div
         style="position: fixed;right: 1px;display: flex;justify-content:center;width: 100%">
-        <div style="height: 250px;width: 900px;">
+        <div style="height: 250px;width: 80%;">
 
           <canvas id="presureChartID"
           >{{ presureChart }}</canvas>
@@ -61,8 +118,8 @@
       </div>
 
     </div>
-    <button (click)="toja.focus()" class="Xbutton1" style="font-size: 80px">X</button>
-    <button (click)="toja.focus()" class="Xbutton2" style="font-size: 80px">X</button>
+    <input (click)="lostFocus()" class="Xbutton1" style="font-size: 80px;z-index: 999999" type="button" value="X">
+    <button (click)="lostFocus()" class="Xbutton2" style="font-size: 80px;z-index: 999999">X</button>
   </div>
   <div class="circleLux">
         <span>
@@ -71,4 +128,4 @@
   </div>
 
 </div>
-<p #toja style="visibility: hidden" tabindex="2"></p>
+

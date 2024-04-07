@@ -26,14 +26,14 @@ export class Energy {
   }
 
   getEnergy() {
-    return this.fae_balanced / 100000
+    return Math.round(this.fae_balanced / 100000 * 100) / 100
   }
 
   sendEnergy() {
-    return this.rae_balanced / 100000
+    return Math.round(this.rae_balanced / 100000 * 100) / 100
   }
 
   akumulator() {
-    return Math.round(((this.rae_balanced * 0.8) - (this.fae_balanced)) / 100000 * 100000) / 100000;
+    return Math.round(((this.rae_balanced * 0.8) - (this.fae_balanced)) / 100000 * 100) / 100;
   }
 }

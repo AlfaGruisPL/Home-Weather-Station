@@ -12,9 +12,20 @@
         *ngIf="solar.energy1 <= 0"
         src="assets/light-bulb-2-512%20—%20kopia.png">
     </div>
-    <div class="now">Teraz:<br> {{solar.energy1}}W</div>
-    <div class="allDay">Dziś:<br> {{solar.all_at_day}}kWh</div>
-    <div class="allYesterday">Wczoraj:<br> {{solarWczoraj.all_at_day}}kWh</div>
+    <div class="now">Teraz:<br> {{solar.energy1}}W <br>
+      {{solarWiata.energy * 1000}}W<br>
+      <span style="border-top:4px solid green">{{solar.energy1 * 1 + (solarWiata.energy * 1000)}}W</span>
+    </div>
+    <div class="allDay">Dziś:<br> {{solar.all_at_day}}kWh <br>
+      {{solarWiata.all_at_day}}kWh<br>
+      <span style="border-top:4px solid green">{{round(solar.all_at_day * 1 + (solarWiata.all_at_day * 1))}}kWh </span>
+    </div>
+    <div class="allYesterday">Wczoraj:<br> {{solarWczoraj.all_at_day}}kWh <br>
+      {{solarWiataWczoraj.all_at_day}}kWh <br>
+      <span
+        style="border-top:4px solid green">{{round(solarWczoraj.all_at_day * 1 + (solarWiataWczoraj.all_at_day * 1)) + "kWh"}}
+         </span>
+    </div>
   </div>
   <div class="bottom">
     <table>

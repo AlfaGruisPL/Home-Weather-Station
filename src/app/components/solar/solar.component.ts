@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Solar} from "../../models/solar";
 import {Chart, TooltipItem} from 'chart.js/auto'
 import {Energy} from "../../models/energy";
@@ -9,7 +9,12 @@ import {Energy} from "../../models/energy";
   styleUrls: ['./solar.component.scss']
 })
 export class SolarComponent implements OnInit, OnDestroy {
+  @Output() Outputsolar: EventEmitter<[Solar, Solar]> = new EventEmitter()
+  solarWiata = new Solar();
+  solarWiataWczoraj = new Solar();
   solar = new Solar();
+
+
   focus = false;
   solarWczoraj = new Solar();
   interval1: any;
@@ -19,6 +24,7 @@ export class SolarComponent implements OnInit, OnDestroy {
   public chart: any;
   allDayLabel: String[] = [];
   allDayValue: number[] = [];
+  allDayValueWiata: number[] = [];
 
   allDayEnergySendValue: number[] = [];
   allDayEnergyReciveValue: number[] = [];
@@ -29,13 +35,16 @@ export class SolarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.solarRequest()
     this.createChart()
+    var ostatnieWykonanie = 0;
+    setInterval(() => {
+      if (ostatnieWykonanie + 4000 < new Date().getTime()) {
+        ostatnieWykonanie = new Date().getTime();
+        this.solarRequest();
+      }
+    }, 300)
 
-    this.interval3 = setInterval(() => {
 
-      this.solarRequest();
-    }, 4000)
     var active = false;
     var activeBack = 0;
 
@@ -49,11 +58,7 @@ export class SolarComponent implements OnInit, OnDestroy {
 
       }
       , 100)
-    this.interval1 = setInterval(() => {
-      if (active) {
 
-      }
-    }, 71000)
   }
 
   ngOnDestroy() {
@@ -68,9 +73,18 @@ export class SolarComponent implements OnInit, OnDestroy {
     }).then(kLocal => {
       Object.assign(this.solar, kLocal['dzis'][0])
       Object.assign(this.solarWczoraj, kLocal['wczoraj'][0])
+      Object.assign(this.solarWiata, kLocal['wiataDzis'][0])
+      Object.assign(this.solarWiataWczoraj, kLocal['WiataWczoraj'][0])
+      this.Outputsolar.emit([this.solar, this.solarWiata])
+
       if (!this.sameDay(new Date(), new Date(this.solar.time))) {
         this.solarWczoraj = this.solar;
         this.solar = new Solar();
+      }
+
+      if (!this.sameDay(new Date(), new Date(this.solarWiata.time))) {
+        this.solarWiataWczoraj = this.solarWiata;
+        this.solarWiata = new Solar();
       }
     })
   }
@@ -108,11 +122,20 @@ export class SolarComponent implements OnInit, OnDestroy {
         this.allDayEnergySendValue.push(k5.send / 100);
         this.allDayEnergyReciveValue.push(k5.recive / 100);
       })
-      kLocal['wykresDni'].forEach((k: Solar) => {
+      kLocal['wykresDni'].forEach((k: Solar, index: number) => {
         const kk = new Solar();
         Object.assign(kk, k)
         this.solarWykres.push(kk)
+
+        if (kLocal['wykresDniWiata'][index] != undefined) {
+          this.allDayValueWiata.push(Number(kLocal['wykresDniWiata'][index].all_at_day))
+        } else {
+
+          this.allDayValueWiata.push(0)
+        }
+        //} else {*/
         this.allDayValue.push(kk.all_at_day)
+        // }
         if (k3 == 0) {
           this.allDayLabel.push("Dziś")
         } else if (k3 == 1) {
@@ -142,10 +165,16 @@ export class SolarComponent implements OnInit, OnDestroy {
         labels: this.allDayLabel,
         datasets: [
           {
-            label: "Produkcja",
+            label: "Prod. wiata",
+            data: this.allDayValueWiata,
+            backgroundColor: '#135b00'
+          },
+          {
+            label: "Prod. dom",
             data: this.allDayValue,
             backgroundColor: '#3eff00'
           },
+
           {
             label: "Wysłane",
             data: this.allDayEnergySendValue,
@@ -214,10 +243,13 @@ export class SolarComponent implements OnInit, OnDestroy {
               footer(tooltipItems: TooltipItem<any>[]): string | string[] | void {
                 if (tooltipItems[2] == undefined) return "----";
                 // @ts-ignore
-                const prad = Math.round(((tooltipItems[2].raw) - (tooltipItems[1].raw * 0.8)) * 100) / 100
+                const prad = Math.round(((tooltipItems[3].raw) - (tooltipItems[2].raw * 0.8)) * 100) / 100
                 // @ts-ignore
-                const autoKonsumpcja = Math.round((tooltipItems[0].raw - tooltipItems[1].raw) * 100) / 100
-                return "Prąd realny: " + prad + " kWh     \nAutokonsumpcja: " + autoKonsumpcja + " kWh"
+                const autoKonsumpcja = Math.round((Number(tooltipItems[0].raw) + Number(tooltipItems[1].raw) - Number(tooltipItems[2].raw)) * 100) / 100
+                // @ts-ignore
+                const suma = Math.round((Number(tooltipItems[0].raw) + Number(tooltipItems[1].raw)) * 100) / 100
+                console.log(tooltipItems)
+                return "Prąd realny: " + prad + " kWh     \nAutokonsumpcja: " + autoKonsumpcja + " kWh \nSuma produkcji: " + suma + " kWh"
               }
             }
           }
@@ -248,5 +280,9 @@ export class SolarComponent implements OnInit, OnDestroy {
     return k1.getFullYear() === k2.getFullYear() &&
       k1.getMonth() === k2.getMonth() &&
       k1.getDate() === k2.getDate();
+  }
+
+  round(k: number) {
+    return Math.round(k * 100) / 100;
   }
 }

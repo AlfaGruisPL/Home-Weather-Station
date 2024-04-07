@@ -11,6 +11,7 @@ import {Chart} from "chart.js/auto";
 })
 export class TemperatureComponent implements OnInit {
   XiaomiSensorKorytarz = new XiaomiSensor();
+
   station: Station = new Station();
   air_O3: Air = new Air("O3", "O", "3");
   air_PM10: Air = new Air("PM10", "PM", "10");
@@ -23,19 +24,36 @@ export class TemperatureComponent implements OnInit {
   charLabel: any = ['', '', '']
 
 
+  XiaomiSensorDol = new XiaomiSensor();
+  XiaomiSensorDuzyPokuj = new XiaomiSensor();
+  XiaomiSensorTaty = new XiaomiSensor();
+  XiaomiSensorDol2 = new XiaomiSensor();
+  XiaomiSensorPawel = new XiaomiSensor();
+  XiaomiSensorMateusz = new XiaomiSensor();
+
+
   constructor() {
   }
 
   ngOnInit(): void {
     this.createPresureChart();
-    this.airInfo()
-    this.XiaomiSensors();
+
+    var ostatnieWykonanie = 0;
     setInterval(() => {
-      this.XiaomiSensors();
-    }, 4000)
+      if (ostatnieWykonanie + 4000 < new Date().getTime()) {
+        ostatnieWykonanie = new Date().getTime();
+        this.XiaomiSensors();
+      }
+    }, 300)
+
+    var ostatnieWykonanie1 = 0;
     setInterval(() => {
-      this.airInfo()
-    }, 20000)
+      if (ostatnieWykonanie1 + 20000 < new Date().getTime()) {
+        ostatnieWykonanie1 = new Date().getTime();
+        this.airInfo()
+      }
+    }, 300)
+
 
   }
 
@@ -70,6 +88,13 @@ export class TemperatureComponent implements OnInit {
     fetch("https://spiderservices.pl/stacja/stacjaApi.php/temperature").then(function (response) {
       return response.json();
     }).then(k => {
+      Object.assign(this.XiaomiSensorDuzyPokuj, k.inside2)
+      Object.assign(this.XiaomiSensorDol, k.inside3)
+      Object.assign(this.XiaomiSensorTaty, k.inside4)
+      Object.assign(this.XiaomiSensorDol2, k.dol2)
+      Object.assign(this.XiaomiSensorPawel, k.pawel)
+      Object.assign(this.XiaomiSensorMateusz, k.mateusz)
+
 
       Object.assign(this.station, k.outSite)
       Object.assign(this.XiaomiSensorKorytarz, k.inside)
@@ -80,15 +105,14 @@ export class TemperatureComponent implements OnInit {
       }
 
       k.presure.forEach((kk: any) => {
-        if (Number(kk['presureBMP']) > 100) {
-
+        if (Number((Math.round(kk['presureBMP'] * 100) / 10000).toString().slice(0, -2)) > 800) {
           this.presureHistory.push(Number((Math.round(kk['presureBMP'] * 100) / 10000).toString().slice(0, -2)));
           this.charLabel.push(kk['data'].split(' ')[1])
         }
         this.charLabel[0] = "teraz"
       })
 
-      console.log(this.presureHistory);
+
       this.presureChart.update();
 //      this.createPresureChart();
     })
@@ -109,7 +133,7 @@ export class TemperatureComponent implements OnInit {
             fill: false,
             borderWidth: 4,
             pointStyle: 'rect',
-            pointHitRadius: 5,
+            pointHitRadius: 1,
             pointRadius: 0.1,
             cubicInterpolationMode: 'monotone',
           }
@@ -151,5 +175,13 @@ export class TemperatureComponent implements OnInit {
     document.getElementById(name).style.zIndex = 11000;
     // @ts-ignore
     document.getElementById(name2).style.zIndex = 100;
+  }
+
+
+  lostFocus() {
+    setTimeout(() => {
+      // @ts-ignore
+      document.activeElement.blur()
+    }, 130)
   }
 }
