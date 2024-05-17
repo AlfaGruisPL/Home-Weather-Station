@@ -6,7 +6,7 @@ This website project was created for a home weather station. The website aims to
 * Furnace Temperature Monitoring: It monitors the temperature of the central heating furnace using temperature sensors connected to a device based on the Arduino platform.
 * Weather Conditions: It presents information about the temperature outside the home, air pollution, sunlight, and humidity through a weather station based on the ESP8266.
 * Interactive Interface: It provides an intuitive user interface for easy browsing of presented data.
-
+* Temperature Monitoring via Bluetooth: The website incorporates a Python script that, through the Bluetooth module, connects to Mi Temperature devices placed in various parts of the home, and reads their temperature. This live temperature data is then displayed on the website.
 Technologies Used
 
 * Backend: MySQL, PHP, Python ,NestJS
@@ -15,22 +15,13 @@ Technologies Used
 
 ## Website
 
-<table>
-<tr>
-<td>
-1
-</td>
-<td>
-1
-</td>
-<td>
-1
-</td>
-</tr>
-</table>
+| Main page        | Solar production           | Presure char and outer weather information  |Mi temperature sensor|
+|:------------- |:-------------:|:-----:|:-----:| 
+|![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website1.png)|![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website2.png)|![iamge](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website3.png)|![iamge](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website4.png)
+
 
 # Weather station
-
+ 
 <table>
 <tr>
 <td>
