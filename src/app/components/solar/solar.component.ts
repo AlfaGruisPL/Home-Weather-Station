@@ -29,7 +29,7 @@ export class SolarComponent implements OnInit, OnDestroy {
   allDayEnergySendValue: number[] = [];
   allDayEnergyReciveValue: number[] = [];
   energyData: Energy[] = [];
-
+  protected readonly Math = Math;
 
   constructor() {
   }

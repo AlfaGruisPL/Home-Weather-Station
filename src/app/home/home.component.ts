@@ -138,5 +138,8 @@ export class HomeComponent implements OnInit {
     this.calc();
   }
 
+  round(k: number) {
+    return Math.round(k * 100) / 100;
+  }
 }
 

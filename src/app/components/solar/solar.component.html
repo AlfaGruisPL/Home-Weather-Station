@@ -12,18 +12,18 @@
         *ngIf="solar.energy1 <= 0"
         src="assets/light-bulb-2-512%20—%20kopia.png">
     </div>
-    <div class="now">Teraz:<br> {{solar.energy1}}W <br>
-      {{solarWiata.energy * 1000}}W<br>
-      <span style="border-top:4px solid green">{{solar.energy1 * 1 + (solarWiata.energy * 1000)}}W</span>
+    <div class="now">Teraz:<br> {{ round(solar.energy1) }}W <br>
+      {{ round(solarWiata.energy * 1000) }}W<br>
+      <span style="border-top:4px solid green">{{ round(solar.energy1 * 1 + (solarWiata.energy * 1000)) }}W</span>
     </div>
-    <div class="allDay">Dziś:<br> {{solar.all_at_day}}kWh <br>
-      {{solarWiata.all_at_day}}kWh<br>
-      <span style="border-top:4px solid green">{{round(solar.all_at_day * 1 + (solarWiata.all_at_day * 1))}}kWh </span>
+    <div class="allDay">Dziś:<br> {{ solar.all_at_day }}kWh <br>
+      {{ round(solarWiata.all_at_day) }}kWh<br>
+      <span style="border-top:4px solid green">{{ round(solar.all_at_day * 1 + (solarWiata.all_at_day * 1)) }}kWh </span>
     </div>
-    <div class="allYesterday">Wczoraj:<br> {{solarWczoraj.all_at_day}}kWh <br>
-      {{solarWiataWczoraj.all_at_day}}kWh <br>
+    <div class="allYesterday">Wczoraj:<br> {{ round(solarWczoraj.all_at_day) }}kWh <br>
+      {{ round(solarWiataWczoraj.all_at_day) }}kWh <br>
       <span
-        style="border-top:4px solid green">{{round(solarWczoraj.all_at_day * 1 + (solarWiataWczoraj.all_at_day * 1)) + "kWh"}}
+        style="border-top:4px solid green">{{ round(solarWczoraj.all_at_day * 1 + (solarWiataWczoraj.all_at_day * 1)) + "kWh" }}
          </span>
     </div>
   </div>
@@ -31,13 +31,13 @@
     <table>
       <tr>
         <td>Początek produkcji: &nbsp;&nbsp;</td>
-        <td>{{solar.poczatek | date:"HH:mm"}}</td>
+        <td>{{ solar.poczatek | date:"HH:mm" }}</td>
       </tr>
 
       <tr>
         <td>Koniec produkcji:</td>
         <td *ngIf="solar.energy1 != 0">------</td>
-        <td *ngIf="solar.energy1 == 0">{{solar.koniec | date:"HH:mm"}}</td>
+        <td *ngIf="solar.energy1 == 0">{{ solar.koniec | date:"HH:mm" }}</td>
       </tr>
     </table>
     <div class="chart-container">

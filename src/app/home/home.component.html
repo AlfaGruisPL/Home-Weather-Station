@@ -7,12 +7,12 @@
     <div class="container">
       <div class="phase1">
         Faza 1:<br>
-        <span id="energyNowPhase1">{{energy.getMocCzynna1()}}W</span>
+        <span id="energyNowPhase1">{{ round(energy.getMocCzynna1()) }}W</span>
       </div>
-      <div class="phase2"> Faza 2:<br><span id="energyNowPhase2">{{energy.getMocCzynna2()}}W</span></div>
-      <div class="phase3"> Faza 3:<br><span id="energyNowPhase3">{{energy.getMocCzynna3()}}W</span></div>
-      <div class="phaseAll"> Faza 1,2,3:<br><span id="energyNowPhaseAll">{{energy.getMocCzynnaSuma()}}W</span>
-        <span style="font-size: 25px;font-weight: normal;margin-top: -2px;display: block;"> Wyliczone: {{power}}W</span>
+      <div class="phase2"> Faza 2:<br><span id="energyNowPhase2">{{ round(energy.getMocCzynna2()) }}W</span></div>
+      <div class="phase3"> Faza 3:<br><span id="energyNowPhase3">{{ round(energy.getMocCzynna3()) }}W</span></div>
+      <div class="phaseAll"> Faza 1,2,3:<br><span id="energyNowPhaseAll">{{ round(energy.getMocCzynnaSuma()) }}W</span>
+        <span style="font-size: 25px;font-weight: normal;margin-top: -2px;display: block;"> Wyliczone: {{ round(power) }}W</span>
       </div>
 
     </div>
@@ -22,20 +22,20 @@
 
         <tr>
           <td><h5 style="text-align: right;width: 100%"> In:&nbsp;</h5></td>
-          <td>&nbsp;<span id="energyDisplay1" style="text-align: right;display:block;width: 100%">{{energy.getEnergy()}}
+          <td>&nbsp;<span id="energyDisplay1" style="text-align: right;display:block;width: 100%">{{ round(energy.getEnergy()) }}
             kWh</span>
           </td>
         </tr>
         <tr>
           <td><h5 style="text-align: right;width: 100%"> Out:&nbsp;</h5></td>
           <td>&nbsp;<span id="energyDisplay2"
-                          style="text-align: right;display:block;width: 100%">{{energy.sendEnergy()}}kWh</span>
+                          style="text-align: right;display:block;width: 100%">{{ round(energy.sendEnergy()) }}kWh</span>
           </td>
         </tr>
         <tr>
           <td><h5 style="text-align: right;width: 100%"> Accu.:&nbsp;</h5></td>
           <td>&nbsp;<span id="energyDisplay3"
-                          style="text-align: right;display:block;width: 100%">{{energy.akumulator()}}kWh</span>
+                          style="text-align: right;display:block;width: 100%">{{ round(energy.akumulator()) }}kWh</span>
           </td>
         </tr>
 
@@ -46,19 +46,19 @@
   <app-furnace></app-furnace>
 
   <div class="time">
-    <h1 id="time">{{time}}</h1>
+    <h1 id="time">{{ time }}</h1>
   </div>
   <div class="meteo">
     <h2>Open-meteo</h2>
     <div class="circle">
       <div>
-        <span class="lcd" id="MeteoTemperature">{{meteo.temperature}}</span><span>&#8451;</span>
+        <span class="lcd" id="MeteoTemperature">{{ meteo.temperature }}</span><span>&#8451;</span>
       </div>
       <div>
-        <span class="lcd" id="MeteoWindSpeed">{{meteo.windspeed}}</span><span>km/h</span>
+        <span class="lcd" id="MeteoWindSpeed">{{ meteo.windspeed }}</span><span>km/h</span>
       </div>
       <div>
-        <span id="MeteoWinddirection">{{meteo.getWindDirection()}}</span><span></span>
+        <span id="MeteoWinddirection">{{ meteo.getWindDirection() }}</span><span></span>
       </div>
     </div>
 
