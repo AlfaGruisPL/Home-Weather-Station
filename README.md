@@ -15,19 +15,10 @@ Technologies Used
 
 ## Website
 
-<table>
-  <tr>
-    <td>
-    ![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website2.png)
-    </td>https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/README.md
-    <td>
-    ![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website2.png)
-    </td>
-    <td>
-      ![iamge](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website2.png)
-    </td>
-  </tr>
-</table>
+| Main page        | Solar production           | Presure char and outer weather information  |
+|:------------- |:-------------:|:-----:| 
+|![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website1.png)|![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website2.png)|![iamge](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website3.png)
+
 
 # Weather station
  
