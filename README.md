@@ -20,23 +20,12 @@ Technologies Used
 |![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website1.png)|![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website2.png)|![iamge](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website3.png)|![iamge](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/website4.png)
 
 
+An external weather station is based on the ESP8266 module, which enables easy Wi-Fi connection to the home server where data is transmitted at short intervals. Power from the network allows for frequent data updates since the device is not limited by battery capacity and energy consumption. (The Wi-Fi module is quite energy-intensive.)
+
 # Weather station
-| Main page        | Solar production           | Presure char and outer weather information  |Mi temperature sensor|
+| Station | ESP2866           | Sensors  |Mi temperature sensor|
 |:------------- |:-------------:|:-----:|:-----:| 
 |![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/zdj1.jpg)|![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/zdj2.jpg)|![iamge](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/zdj3.jpg)
 
 
  
-<table>
-<tr>
-<td>
-1
-</td>
-<td>
-1
-</td>
-<td>
-1
-</td>
-</tr>
-</table>
