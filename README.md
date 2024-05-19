@@ -21,6 +21,11 @@ Technologies Used
 
 
 # Weather station
+| Main page        | Solar production           | Presure char and outer weather information  |Mi temperature sensor|
+|:------------- |:-------------:|:-----:|:-----:| 
+|![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/zdj1.jpg)|![](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/zdj2.jpg)|![iamge](https://github.com/AlfaGruisPL/StacjaDomowa/blob/master/src/assets/readme/zdj3.jpg)
+
+
  
 <table>
 <tr>
